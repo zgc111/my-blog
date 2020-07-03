@@ -1,5 +1,8 @@
 package com.site.blog.my.core.controller.admin;
 
+import com.alibaba.excel.EasyExcelFactory;
+import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.metadata.Sheet;
 import com.site.blog.my.core.config.Constants;
 import com.site.blog.my.core.entity.Blog;
 import com.site.blog.my.core.service.BlogService;
@@ -16,9 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
@@ -27,10 +28,7 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link http://13blog.site
+ *
  */
 @Controller
 @RequestMapping("/admin")
@@ -40,6 +38,32 @@ public class BlogController {
     private BlogService blogService;
     @Resource
     private CategoryService categoryService;
+
+
+    /**
+     * 导出博客功能
+     *
+     * @param
+     * @return
+     */
+    @RequestMapping("export")
+    public void ecxleExport() {
+        OutputStream out = null;
+        ExcelWriter writer = EasyExcelFactory.getWriter(out);
+        try {
+            Sheet sheet = new Sheet(1, 0, Blog.class);
+            sheet.setSheetName("博客基本信息");
+            writer.write(blogService.selectList(), sheet);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @GetMapping("/blogs/list")
     @ResponseBody

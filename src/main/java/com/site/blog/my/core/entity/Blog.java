@@ -1,12 +1,15 @@
 package com.site.blog.my.core.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.metadata.BaseRowModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class Blog {
+public class Blog extends BaseRowModel {
     private Long blogId;
 
+    @ExcelProperty(value = {"博客标题"}, index = 0)
     private String blogTitle;
 
     private String blogSubUrl;
@@ -15,9 +18,15 @@ public class Blog {
 
     private Integer blogCategoryId;
 
+    @ExcelProperty(value = {"所属分类名称"}, index = 1)
     private String blogCategoryName;
 
+    @ExcelProperty(value = {"标签名称"}, index = 2)
     private String blogTags;
+
+
+    @ExcelProperty(value = {"博客内容"}, index = 3)
+    private String blogContent;
 
     private Byte blogStatus;
 
@@ -30,9 +39,9 @@ public class Blog {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
+    @ExcelProperty(value = {"更新时间"}, index = 4)
     private Date updateTime;
 
-    private String blogContent;
 
     public Long getBlogId() {
         return blogId;

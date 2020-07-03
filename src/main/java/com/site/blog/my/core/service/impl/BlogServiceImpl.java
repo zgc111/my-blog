@@ -38,6 +38,15 @@ public class BlogServiceImpl implements BlogService {
     private BlogCommentMapper blogCommentMapper;
 
     @Override
+    public List<Blog> selectList() {
+        List<Blog> blogList = blogMapper.selectList();
+        if (blogList == null) {
+            return null;
+        }
+        return blogList;
+    }
+
+    @Override
     @Transactional
     public String saveBlog(Blog blog) {
         BlogCategory blogCategory = categoryMapper.selectByPrimaryKey(blog.getBlogCategoryId());

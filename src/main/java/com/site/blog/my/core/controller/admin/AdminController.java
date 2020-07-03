@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link http://13blog.site
+admin控制器
  */
 @Controller
 @RequestMapping("/admin")
@@ -48,11 +45,11 @@ public class AdminController {
     @GetMapping({"", "/", "/index", "/index.html"})
     public String index(HttpServletRequest request) {
         request.setAttribute("path", "index");
-        request.setAttribute("categoryCount", categoryService.getTotalCategories());
-        request.setAttribute("blogCount", blogService.getTotalBlogs());
-        request.setAttribute("linkCount", linkService.getTotalLinks());
-        request.setAttribute("tagCount", tagService.getTotalTags());
-        request.setAttribute("commentCount", commentService.getTotalComments());
+        request.setAttribute("categoryCount", categoryService.getTotalCategories());//分类总数
+        request.setAttribute("blogCount", blogService.getTotalBlogs());//文章总数
+        request.setAttribute("linkCount", linkService.getTotalLinks());//链接总数
+        request.setAttribute("tagCount", tagService.getTotalTags());//标签总数
+        request.setAttribute("commentCount", commentService.getTotalComments());//评论总数
         request.setAttribute("path", "index");
         return "admin/index";
     }
@@ -83,7 +80,7 @@ public class AdminController {
             //session.setMaxInactiveInterval(60 * 60 * 2);
             return "redirect:/admin/index";
         } else {
-            session.setAttribute("errorMsg", "登陆失败");
+            session.setAttribute("errorMsg", "账户名或密码错误");
             return "admin/login";
         }
     }
