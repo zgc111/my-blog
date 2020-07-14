@@ -13,10 +13,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 
 /**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link http://13blog.site
+ * @author zgc
+ * 生成验证码
  */
 @Controller
 public class CommonController {
@@ -31,7 +29,7 @@ public class CommonController {
         try {
             //生产验证码字符串并保存到session中
             String verifyCode = captchaProducer.createText();
-            httpServletRequest.getSession().setAttribute("verifyCode", verifyCode);
+            httpServletRequest.getSession().setAttribute("verifyCode", verifyCode);//此时是一个字符串，还没有加载成图片
             BufferedImage challenge = captchaProducer.createImage(verifyCode);
             ImageIO.write(challenge, "jpg", imgOutputStream);
         } catch (IllegalArgumentException e) {
