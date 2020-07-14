@@ -72,6 +72,8 @@ public class AdminController {
             session.setAttribute("errorMsg", "验证码错误");
             return "admin/login";
         }
+
+
         AdminUser adminUser = adminUserService.login(userName, password);
         if (adminUser != null) {
             session.setAttribute("loginUser", adminUser.getNickName());
