@@ -101,20 +101,23 @@ function editBlog() {
     window.location.href = "/admin/blogs/edit/" + id;
 }
 function exportBlog() {
-    var ids = getSelectedIds();
-    if(ids == null){
-        window.location.href="/admin/export";
-    }else{
-        $.ajax({
-            type:"POST",
-            url:"/admin/export",
-            contentType: "application/json",
-            data: JSON.stringify(ids),
-            error:function () {
-                alert("调用失败,请重试！");
-            }
-        })
-    }
+    let ids = getSelectedIds();
+    alert(ids)
+    window.location.href="/admin/export";
+    // alert(ids)
+    // if(ids == null){
+    //     window.location.href="/admin/export";
+    // }else{
+    //     // $.ajax({
+    //     //     type:"GET",
+    //     //     url:"/admin/export",
+    //     //     // contentType: "application/json",
+    //     //     data: {"ids":ids},
+    //     //     error:function () {
+    //     //         alert("调用失败,请重试！");
+    //     //     }
+    //     // })
+    // }
 
 }
 

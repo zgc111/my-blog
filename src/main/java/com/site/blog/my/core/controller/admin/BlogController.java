@@ -49,17 +49,17 @@ public class BlogController {
      * @param
      * @return
      */
-    @RequestMapping("/export/")
-    @ResponseBody
-    public void ecxleExport(HttpServletResponse response, @RequestBody Integer[] ids) throws IOException {
+    @RequestMapping("/export")
+    public void ecxleExport(HttpServletResponse response, Integer[] ids) throws IOException {
         response.setContentType("application/vnd.ms-excel");
         response.setCharacterEncoding("utf-8");
         String fileName = URLEncoder.encode("博客信息数据", "UTF-8");
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        System.out.println(ids);
         if (ids == null) {
             List<Blog> blogList = blogService.selectList();
-            System.out.println(blogList);
-            if(blogList.size()==0){//当查询无数据时，防止出现异常
+//            System.out.println(blogList);
+            if (blogList.size() == 0) {//当查询无数据时，防止出现异常
                 Blog blog = new Blog();
                 blogList.add(blog);
                 EasyExcel.write(response.getOutputStream(), Blog.class).sheet("博客信息数据").doWrite(blogList);
@@ -67,7 +67,7 @@ public class BlogController {
             EasyExcel.write(response.getOutputStream(), Blog.class).sheet("博客信息数据").doWrite(blogList);
         } else {
             List<Blog> blogList1 = blogService.selectByIds(ids);
-            if(blogList1.size()==0){//当查询无数据时，防止出现异常
+            if (blogList1.size() == 0) {//当查询无数据时，防止出现异常
                 Blog blog1 = new Blog();
                 blogList1.add(blog1);
                 EasyExcel.write(response.getOutputStream(), Blog.class).sheet("博客信息数据").doWrite(blogList1);
