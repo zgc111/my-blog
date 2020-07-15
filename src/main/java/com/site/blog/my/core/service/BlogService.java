@@ -89,4 +89,6 @@ public interface BlogService {
     PageResult getBlogsPageBySearch(String keyword, int page);
 
     BlogDetailVO getBlogDetailBySubUrl(String subUrl);
+
+    List<Blog> selectByIds(Integer[] ids);//根据ids查询
 }

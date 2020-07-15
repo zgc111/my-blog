@@ -1,5 +1,6 @@
 package com.site.blog.my.core.controller.admin;
 
+import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.Sheet;
@@ -22,8 +23,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -46,22 +49,30 @@ public class BlogController {
      * @param
      * @return
      */
-    @RequestMapping("export")
-    public void ecxleExport() {
-        OutputStream out = null;
-        ExcelWriter writer = EasyExcelFactory.getWriter(out);
-        try {
-            Sheet sheet = new Sheet(1, 0, Blog.class);
-            sheet.setSheetName("博客基本信息");
-            writer.write(blogService.selectList(), sheet);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+    @RequestMapping("/export/")
+    @ResponseBody
+    public void ecxleExport(HttpServletResponse response, @RequestBody Integer[] ids) throws IOException {
+        response.setContentType("application/vnd.ms-excel");
+        response.setCharacterEncoding("utf-8");
+        String fileName = URLEncoder.encode("博客信息数据", "UTF-8");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+        if (ids == null) {
+            List<Blog> blogList = blogService.selectList();
+            System.out.println(blogList);
+            if(blogList.size()==0){//当查询无数据时，防止出现异常
+                Blog blog = new Blog();
+                blogList.add(blog);
+                EasyExcel.write(response.getOutputStream(), Blog.class).sheet("博客信息数据").doWrite(blogList);
             }
+            EasyExcel.write(response.getOutputStream(), Blog.class).sheet("博客信息数据").doWrite(blogList);
+        } else {
+            List<Blog> blogList1 = blogService.selectByIds(ids);
+            if(blogList1.size()==0){//当查询无数据时，防止出现异常
+                Blog blog1 = new Blog();
+                blogList1.add(blog1);
+                EasyExcel.write(response.getOutputStream(), Blog.class).sheet("博客信息数据").doWrite(blogList1);
+            }
+            EasyExcel.write(response.getOutputStream(), Blog.class).sheet("博客信息数据").doWrite(blogList1);
         }
     }
 

@@ -11,6 +11,7 @@
         <result column="blog_tags" jdbcType="VARCHAR" property="blogTags"/>
         <result column="blog_status" jdbcType="TINYINT" property="blogStatus"/>
         <result column="blog_views" jdbcType="BIGINT" property="blogViews"/>
+        <result column="blog_content" jdbcType="VARCHAR" property="blogContent"/>
         <result column="enable_comment" jdbcType="TINYINT" property="enableComment"/>
         <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -20,7 +21,7 @@
         <result column="blog_content" jdbcType="LONGVARCHAR" property="blogContent"/>
     </resultMap>
     <sql id="Base_Column_List">
-    blog_id, blog_title, blog_sub_url, blog_cover_image, blog_category_id, blog_category_name, 
+    blog_id, blog_title, blog_sub_url, blog_cover_image,blog_content, blog_category_id, blog_category_name,
     blog_tags, blog_status, blog_views, enable_comment, is_deleted, create_time, update_time
   </sql>
     <sql id="Blob_Column_List">
@@ -59,6 +60,16 @@
         <include refid="Base_Column_List"/>
         from tb_blog
         where is_deleted=0
+    </select>
+
+    <select id="selectByIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_blog
+        where is_deleted=0 and blog_id in
+        <foreach collection="array" index="index" item="blog_id" open="(" separator="," close=")">
+            #{blog_id}
+        </foreach>
     </select>
 
     <select id="getTotalBlogs" parameterType="Map" resultType="int">

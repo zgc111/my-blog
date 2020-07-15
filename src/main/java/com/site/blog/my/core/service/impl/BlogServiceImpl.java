@@ -308,6 +308,20 @@ public class BlogServiceImpl implements BlogService {
     }
 
     /**
+     * 根据ids查询
+     * @param ids
+     * @return
+     */
+    @Override
+    public List<Blog> selectByIds(Integer[] ids) {
+        List<Blog> blogList = blogMapper.selectByIds(ids);
+        if(blogList == null){
+            return null;
+        }
+        return blogList;
+    }
+
+    /**
      * 方法抽取
      *
      * @param blog

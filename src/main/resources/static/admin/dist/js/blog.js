@@ -100,6 +100,23 @@ function editBlog() {
     }
     window.location.href = "/admin/blogs/edit/" + id;
 }
+function exportBlog() {
+    var ids = getSelectedIds();
+    if(ids == null){
+        window.location.href="/admin/export";
+    }else{
+        $.ajax({
+            type:"POST",
+            url:"/admin/export",
+            contentType: "application/json",
+            data: JSON.stringify(ids),
+            error:function () {
+                alert("调用失败,请重试！");
+            }
+        })
+    }
+
+}
 
 function deleteBlog() {
     var ids = getSelectedRows();
