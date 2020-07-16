@@ -50,7 +50,7 @@ public class BlogController {
      * @return
      */
     @RequestMapping("/export")
-    public void ecxleExport(HttpServletResponse response, Integer[] ids) throws IOException {
+    public void ecxleExport(HttpServletResponse response,Integer[] ids) throws IOException {
         response.setContentType("application/vnd.ms-excel");
         response.setCharacterEncoding("utf-8");
         String fileName = URLEncoder.encode("博客信息数据", "UTF-8");

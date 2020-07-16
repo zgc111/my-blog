@@ -101,24 +101,15 @@ function editBlog() {
     window.location.href = "/admin/blogs/edit/" + id;
 }
 function exportBlog() {
-    let ids = getSelectedIds();
-    alert(ids)
-    window.location.href="/admin/export";
-    // alert(ids)
-    // if(ids == null){
-    //     window.location.href="/admin/export";
-    // }else{
-    //     // $.ajax({
-    //     //     type:"GET",
-    //     //     url:"/admin/export",
-    //     //     // contentType: "application/json",
-    //     //     data: {"ids":ids},
-    //     //     error:function () {
-    //     //         alert("调用失败,请重试！");
-    //     //     }
-    //     // })
-    // }
+    var ids = getSelectedIds();
 
+    console.log(JSON.stringify(ids));
+    if(ids == ""){
+        window.location.href="/admin/export";
+    }
+    if(ids !=""){
+        window.location.href="/admin/export?ids="+ids;
+    }
 }
 
 function deleteBlog() {

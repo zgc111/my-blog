@@ -67,7 +67,7 @@
         <include refid="Base_Column_List"/>
         from tb_blog
         where is_deleted=0 and blog_id in
-        <foreach collection="array" index="index" item="blog_id" open="(" separator="," close=")">
+        <foreach collection="array" item="blog_id" open="(" separator="," close=")">
             #{blog_id}
         </foreach>
     </select>
