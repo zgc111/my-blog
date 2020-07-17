@@ -2,6 +2,8 @@ package com.site.blog.my.core.controller.admin;
 
 import com.site.blog.my.core.entity.AdminUser;
 import com.site.blog.my.core.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,8 @@ public class AdminController {
     private TagService tagService;
     @Resource
     private CommentService commentService;
+    @Autowired
+    RedisTemplate redisTemplate;
 
 
     @GetMapping({"/login"})
@@ -45,11 +49,11 @@ public class AdminController {
     @GetMapping({"", "/", "/index", "/index.html"})
     public String index(HttpServletRequest request) {
         request.setAttribute("path", "index");
-        request.setAttribute("categoryCount", categoryService.getTotalCategories());//分类总数
-        request.setAttribute("blogCount", blogService.getTotalBlogs());//文章总数
-        request.setAttribute("linkCount", linkService.getTotalLinks());//链接总数
-        request.setAttribute("tagCount", tagService.getTotalTags());//标签总数
-        request.setAttribute("commentCount", commentService.getTotalComments());//评论总数
+        request.setAttribute("categoryCount",redisTemplate.opsForValue().get("categoryCount"));//分类总数
+        request.setAttribute("blogCount", redisTemplate.opsForValue().get("blogCount"));//文章总数
+        request.setAttribute("linkCount", redisTemplate.opsForValue().get("linkCount"));//链接总数
+        request.setAttribute("tagCount", redisTemplate.opsForValue().get("tagCount"));//标签总数
+        request.setAttribute("commentCount", redisTemplate.opsForValue().get("commentCount"));//评论总数
         request.setAttribute("path", "index");
         return "admin/index";
     }

@@ -13,10 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * @author 13
- * @qq交流群 796794009
- * @email 2449207463@qq.com
- * @link http://13blog.site
+ *评论控制类
  */
 @Controller
 @RequestMapping("/admin")
@@ -35,6 +32,11 @@ public class CommentController {
         return ResultGenerator.genSuccessResult(commentService.getCommentsPage(pageUtil));
     }
 
+    /**
+     * 审核
+     * @param ids
+     * @return
+     */
     @PostMapping("/comments/checkDone")
     @ResponseBody
     public Result checkDone(@RequestBody Integer[] ids) {
@@ -48,6 +50,12 @@ public class CommentController {
         }
     }
 
+    /**
+     * 回复
+     * @param commentId
+     * @param replyBody
+     * @return
+     */
     @PostMapping("/comments/reply")
     @ResponseBody
     public Result checkDone(@RequestParam("commentId") Long commentId,
