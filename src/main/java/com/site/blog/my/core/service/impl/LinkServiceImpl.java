@@ -63,4 +63,10 @@ public class LinkServiceImpl implements LinkService {
         }
         return null;
     }
+
+    @Override
+    public List<BlogLink> getAllList() {
+        List<BlogLink> blogLinks = blogLinkMapper.getAllList();
+        return blogLinks;
+    }
 }

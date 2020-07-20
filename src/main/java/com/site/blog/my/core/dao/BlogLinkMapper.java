@@ -23,4 +23,5 @@ public interface BlogLinkMapper {
     int getTotalLinks(PageQueryUtil pageUtil);
 
     int deleteBatch(Integer[] ids);
+    List<BlogLink> getAllList();
 }

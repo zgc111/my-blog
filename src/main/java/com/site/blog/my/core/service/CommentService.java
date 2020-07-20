@@ -4,6 +4,8 @@ import com.site.blog.my.core.entity.BlogComment;
 import com.site.blog.my.core.util.PageQueryUtil;
 import com.site.blog.my.core.util.PageResult;
 
+import java.util.List;
+
 public interface CommentService {
     /**
      * 添加评论
@@ -56,4 +58,6 @@ public interface CommentService {
      * @return
      */
     PageResult getCommentPageByBlogIdAndPageNum(Long blogId, int page);
+
+    List<BlogComment> getAllList();
 }

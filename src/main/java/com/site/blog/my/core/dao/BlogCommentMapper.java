@@ -24,4 +24,5 @@ public interface BlogCommentMapper {
     int checkDone(Integer[] ids);
 
     int deleteBatch(Integer[] ids);
+    List<BlogComment> getAllList();
 }

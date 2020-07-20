@@ -32,4 +32,5 @@ public interface LinkService {
      * @return
      */
     Map<Byte, List<BlogLink>> getLinksForLinkPage();
+    List<BlogLink> getAllList();
 }

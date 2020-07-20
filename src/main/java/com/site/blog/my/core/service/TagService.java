@@ -1,5 +1,6 @@
 package com.site.blog.my.core.service;
 
+import com.site.blog.my.core.entity.BlogTag;
 import com.site.blog.my.core.entity.BlogTagCount;
 import com.site.blog.my.core.util.PageQueryUtil;
 import com.site.blog.my.core.util.PageResult;
@@ -23,4 +24,5 @@ public interface TagService {
     Boolean deleteBatch(Integer[] ids);
 
     List<BlogTagCount> getBlogTagCountForIndex();
+    List<BlogTag> getAllList();
 }

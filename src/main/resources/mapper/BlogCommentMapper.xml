@@ -36,6 +36,13 @@
         </if>
     </select>
 
+    <select id="getAllList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_blog_comment
+        where is_deleted=0
+    </select>
+
     <select id="getTotalBlogComments" parameterType="Map" resultType="int">
         select count(*) from tb_blog_comment
         where is_deleted=0

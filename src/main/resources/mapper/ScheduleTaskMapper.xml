@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.site.blog.my.core.dao.ScheduleTaskMapper">
+    <resultMap id="BaseResultMap" type="com.site.blog.my.core.entity.ScheduleTask">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="Is_Success" jdbcType="INTEGER" property="Is_Success"/>
+        <result column="TaskName" jdbcType="VARCHAR" property="TaskName"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="TaskTime" jdbcType="VARCHAR" property="TaskTime"/>
+    </resultMap>
+
+    <select id="getOutList" resultMap="BaseResultMap">
+  select id,TaskName,TaskTime,Is_Success,createTime from  scheduletask
+</select>
+
+    <insert id="ScheduleTaskInsert" parameterType="com.site.blog.my.core.entity.ScheduleTask">
+  insert into scheduletask (TaskName,TaskTime,Is_Success,createTime) values
+  (#{TaskName},#{TaskTime},#{Is_Success},#{createTime})
+</insert>
+
+    <delete id="deleteById" parameterType="java.lang.Integer" >
+        delete from scheduletask where id=#{id}
+    </delete>
+</mapper>

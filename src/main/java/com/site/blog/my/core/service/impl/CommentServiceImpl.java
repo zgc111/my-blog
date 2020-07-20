@@ -79,4 +79,10 @@ public class CommentServiceImpl implements CommentService {
         }
         return null;
     }
+
+    @Override
+    public List<BlogComment> getAllList() {
+        List<BlogComment> blogComments = blogCommentMapper.getAllList();
+        return blogComments;
+    }
 }
