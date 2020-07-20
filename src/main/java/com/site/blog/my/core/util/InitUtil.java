@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * redis初始化数据
@@ -36,17 +37,17 @@ public class InitUtil implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         String startDate = DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss");
         System.out.println("查询数据开始,开始写入数据!开始时间:"+startDate);
-        redisTemplate.opsForValue().set("categoryCount",categoryService.getTotalCategories());
-        redisTemplate.opsForValue().set("blogCount", blogService.getTotalBlogs());
-        redisTemplate.opsForValue().set("linkCount", linkService.getTotalLinks());
-        redisTemplate.opsForValue().set("tagCount", tagService.getTotalTags());
-        redisTemplate.opsForValue().set("commentCount", commentService.getTotalComments());
+        redisTemplate.opsForValue().set("categoryCount",categoryService.getTotalCategories(),60*10, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("blogCount", blogService.getTotalBlogs(),60 * 10, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("linkCount", linkService.getTotalLinks(),60 * 10, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("tagCount", tagService.getTotalTags(),60 * 10, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("commentCount", commentService.getTotalComments(),60 * 10, TimeUnit.SECONDS);
 
-        redisTemplate.opsForValue().set("blogList",blogService.selectList());
-        redisTemplate.opsForValue().set("categoryList",categoryService.getAllCategories());
-        redisTemplate.opsForValue().set("linkList",linkService.getAllList());
-        redisTemplate.opsForValue().set("commentList",commentService.getAllList());
-        redisTemplate.opsForValue().set("tagList",tagService.getAllList());
+        redisTemplate.opsForValue().set("blogList",blogService.selectList(),60 * 10, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("categoryList",categoryService.getAllCategories(),60 * 10, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("linkList",linkService.getAllList(),60 * 10, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("commentList",commentService.getAllList(),60 * 10, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("tagList",tagService.getAllList(),60 * 10, TimeUnit.SECONDS);
         String endDate = DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss");
         System.out.println("写入数据完成!结束时间:"+endDate);
     }

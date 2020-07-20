@@ -15,6 +15,7 @@ import com.site.blog.my.core.util.PageResult;
 import com.site.blog.my.core.util.PatternUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -36,6 +37,8 @@ public class BlogServiceImpl implements BlogService {
     private BlogTagRelationMapper blogTagRelationMapper;
     @Autowired
     private BlogCommentMapper blogCommentMapper;
+    @Autowired
+    RedisTemplate redisTemplate;
 
     @Override
     public List<Blog> selectList() {
@@ -105,7 +108,8 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public PageResult getBlogsPage(PageQueryUtil pageUtil) {
         List<Blog> blogList = blogMapper.findBlogList(pageUtil);
-        int total = blogMapper.getTotalBlogs(pageUtil);
+//        List<Blog> blogList = (List<Blog>)redisTemplate.opsForValue().get("blogList");
+        int total = (Integer)redisTemplate.opsForValue().get("blogCount");
         PageResult pageResult = new PageResult(blogList, total, pageUtil.getLimit(), pageUtil.getPage());
         return pageResult;
     }

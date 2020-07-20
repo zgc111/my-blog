@@ -58,7 +58,6 @@ public class BlogController {
         System.out.println(ids);
         if (ids == null) {
             List<Blog> blogList = blogService.selectList();
-//            System.out.println(blogList);
             if (blogList.size() == 0) {//当查询无数据时，防止出现异常
                 Blog blog = new Blog();
                 blogList.add(blog);
