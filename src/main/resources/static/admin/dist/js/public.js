@@ -102,7 +102,8 @@ function validCN_ENString2_100(str) {
  * @returns {boolean}
  */
 function validPassword(password) {
-    var pattern = /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$)^.{6,20}$/;
+    // var pattern = /^(?![0-9]+$)(?![a-z]+$)(?![A-Z]+$)(?!([^(0-9a-zA-Z)])+$)^.{6,20}$/;
+    var pattern = /^[A-Za-z0-9]+$/;
     if (pattern.test(password.trim())) {
         return (true);
     } else {
